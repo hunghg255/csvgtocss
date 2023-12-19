@@ -25,7 +25,7 @@ import { defineConfig } from 'csvgtocss';
 export default defineConfig({
   src: 'svg', // svg path
   dist: 'dist', // output path
-  fontName: 'csvgtocss', // font name
+  prefix: 'csvgtocss', // font name
 });
 ```
 
