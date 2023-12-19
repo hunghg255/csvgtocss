@@ -1,0 +1,7 @@
+{
+  "name": "agile-css",
+  "version": "2.1.11",
+  "scripts": {
+    "test:cli": "node ../dist/cli.mjs"
+  }
+}
