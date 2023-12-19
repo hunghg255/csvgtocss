@@ -1,5 +1,5 @@
 {
-  "name": "svgtocss",
+  "name": "csvgtocss",
   "version": "0.0.1",
   "description": "Convert svg to css",
   "source": "src/index.ts",
@@ -36,19 +36,19 @@
     "typescript": "^4.8.4"
   },
   "bin": {
-    "svgtocss": "./bin/svgtocss.mjs"
+    "csvgtocss": "./bin/csvgtocss.mjs"
   },
   "files": [
     "bin",
     "dist"
   ],
-  "homepage": "https://github.com/hunghg255/svgtocss",
+  "homepage": "https://github.com/hunghg255/csvgtocss",
   "repository": {
     "type": "git",
-    "url": "https://github.com/hunghg255/svgtocss"
+    "url": "https://github.com/hunghg255/csvgtocss"
   },
   "bugs": {
-    "url": "https://github.com/hunghg255/svgtocss/issues"
+    "url": "https://github.com/hunghg255/csvgtocss/issues"
   },
   "dependencies": {
     "@iconify/tools": "^3.0.7",
