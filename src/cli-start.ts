@@ -42,7 +42,7 @@ export async function startCli(cwd = process.cwd(), argv = process.argv) {
         links: [
           {
             title: 'GitHub',
-            url: 'https://github.com/hunghg255/svgtocss',
+            url: 'https://github.com/hunghg255/csvgtocss',
           },
         ],
       },

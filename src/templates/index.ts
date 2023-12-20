@@ -142,7 +142,7 @@ export const genHtml = ({ cssContent, prefix, svgMonochrome, svgMultichrome }: a
       </div>
       <p class="links">
 
-        <a href="https://github.com/hunghg255/svg-to-font">GitHub</a>
+        <a href="https://github.com/hunghg255/csvgtocss">GitHub</a>
 
       </p>
     </body>
