@@ -1,14 +1,14 @@
 {
   "name": "csvgtocss",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Convert svg to css",
-  "source": "src/index.ts",
-  "main": "./dist/index.mjs",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
       "import": "./dist/index.mjs"
     }
   },
