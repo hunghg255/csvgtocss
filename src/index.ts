@@ -76,8 +76,8 @@ export const svg2Font = async (options: SvgToCssOptions) => {
       prefix,
     });
 
-    const svgMonotone: any = [];
-    const svgMultitone: any = [];
+    const svgMonochrome: any = [];
+    const svgMultichrome: any = [];
 
     // Validate, clean up, fix palette and optimise
     await iconSet.forEach(async (name, type) => {
@@ -98,10 +98,10 @@ export const svg2Font = async (options: SvgToCssOptions) => {
         cleanupSVG(svg);
 
         // check svg is monotone
-        const isMonotone = svgHasOnlyPathChild(svg.toString());
+        const isMonochrome = svgHasOnlyPathChild(svg.toString());
         // Assume icon is monotone: replace color with currentColor, add if missing
         // If icon is not monotone, remove this code
-        if (isMonotone) {
+        if (isMonochrome) {
           await parseColors(svg, {
             defaultColor: 'currentColor',
             callback: (attr, colorStr, color) => {
@@ -113,13 +113,13 @@ export const svg2Font = async (options: SvgToCssOptions) => {
         // Optimise
         runSVGO(svg);
 
-        if (isMonotone) {
-          svgMonotone.push({
+        if (isMonochrome) {
+          svgMonochrome.push({
             name,
             prefix,
           });
         } else {
-          svgMultitone.push({
+          svgMultichrome.push({
             name,
             prefix,
           });
@@ -138,10 +138,10 @@ export const svg2Font = async (options: SvgToCssOptions) => {
     let cssMonofont = '';
     let cssMultifont = '';
 
-    if (svgMonotone?.length) {
+    if (svgMonochrome?.length) {
       cssMonofont = getIconsCSS(
         iconSet.export(),
-        svgMonotone.map((it: any) => it.name),
+        svgMonochrome.map((it: any) => it.name),
         {
           iconSelector: `.${prefix}-{name}`,
           commonSelector: '',
@@ -149,10 +149,10 @@ export const svg2Font = async (options: SvgToCssOptions) => {
       );
     }
 
-    if (svgMultitone?.length) {
+    if (svgMultichrome?.length) {
       cssMultifont = getIconsCSS(
         iconSet.export(),
-        svgMultitone.map((it: any) => it.name),
+        svgMultichrome.map((it: any) => it.name),
         {
           iconSelector: `.${prefix}-{name}`,
           commonSelector: '',
@@ -166,7 +166,7 @@ ${cssMultifont}
 `;
 
     const type = `
-export type T${prefix} = ${[...svgMonotone, ...svgMultitone]
+export type T${prefix} = ${[...svgMonochrome, ...svgMultichrome]
       .map((it: any) => `'${prefix}-${it?.name}'`)
       .join(' | ')};
 `;
@@ -178,8 +178,8 @@ export type T${prefix} = ${[...svgMonotone, ...svgMultitone]
       genHtml({
         cssContent,
         prefix,
-        svgMonotone,
-        svgMultitone,
+        svgMonochrome,
+        svgMultichrome,
       }),
     );
 

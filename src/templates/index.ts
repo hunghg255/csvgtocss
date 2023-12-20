@@ -22,7 +22,7 @@ ${cssString}
   `;
 };
 
-export const genHtml = ({ cssContent, prefix, svgMonotone, svgMultitone }: any) => {
+export const genHtml = ({ cssContent, prefix, svgMonochrome, svgMultichrome }: any) => {
   return `
   <!DOCTYPE html>
   <html lang="en">
@@ -112,9 +112,9 @@ export const genHtml = ({ cssContent, prefix, svgMonotone, svgMultitone }: any) 
         <h1>${prefix}</h1>
       </div>
       <div class="icons">
-        <h3>Icon Monotone</h3>
+        <h3>Icon Monochrome</h3>
         <ul>
-          ${svgMonotone
+          ${svgMonochrome
             .map((it: any) => {
               return `<li class="class-icon">
                 <i class="${prefix}-${it.name}"></i>
@@ -127,9 +127,9 @@ export const genHtml = ({ cssContent, prefix, svgMonotone, svgMultitone }: any) 
 
         <br />
 
-        <h3>Icon Multitone</h3>
+        <h3>Icon Multiplechrome</h3>
         <ul>
-        ${svgMultitone
+        ${svgMultichrome
           .map((it: any) => {
             return `<li class="class-icon">
               <i class="${prefix}-${it.name}"></i>
