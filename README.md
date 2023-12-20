@@ -17,7 +17,7 @@ npm i csvgtocss@latest --save-dev
 
 ## Setup
 
-### Create file: `csvgtocss.config.{ts,js,mjs}`
+### Create file: `svgtocss.config.{ts,js,mjs}`
 
 ```js
 import { defineConfig } from 'csvgtocss';
@@ -48,7 +48,7 @@ export default defineConfig({
 
 ### Custom config file
 
-- You can also use a custom config file instead of `csvgtocss.config.{ts,js,mjs}`. Just create `<FILE_NAME>.config.{ts,js,mjs}` to build command
+- You can also use a custom config file instead of `svgtocss.config.{ts,js,mjs}`. Just create `<FILE_NAME>.config.{ts,js,mjs}` to build command
 
 ```js
 Exp: awesome.config.ts;
