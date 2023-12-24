@@ -18,7 +18,7 @@
   "scripts": {
     "build": "unbuild",
     "stub": "unbuild --stub",
-    "lint": "tsc",
+    "lint": "npx oxlint@latest .",
     "changelog": "npx changeloggithub@latest --all true && git add CHANGELOG.md && git commit -m 'chore: update CHANGELOG.md'",
     "release": "bumpp -r && npm run changelog"
   },
