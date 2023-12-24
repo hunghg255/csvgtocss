@@ -25,9 +25,11 @@ export type SvgToCssOptions = {
   src: string;
   /**
    * The font family name you want.
-   * @default iconfont
+   * @default icon
    */
   prefix?: string;
+
+  exportJson?: boolean;
 
   website?: {
     /**
@@ -48,6 +50,7 @@ interface IDefineConfig {
   src: string;
   dist: string;
   prefix?: string;
+  exportJson?: boolean;
 }
 
 declare global {
@@ -182,6 +185,13 @@ export type T${prefix} = ${[...svgMonochrome, ...svgMultichrome]
         svgMultichrome,
       }),
     );
+
+    if (options?.exportJson) {
+      fs.writeFile(
+        path.resolve(dist, `${prefix}-collection.json`),
+        JSON.stringify(iconSet.export(), null, 2),
+      );
+    }
 
     log.log(color.green('SvgTocss:CLI:SUCCESS:'));
     console.log();

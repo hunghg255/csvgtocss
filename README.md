@@ -26,6 +26,7 @@ export default defineConfig({
   src: 'svg', // svg path
   dist: 'dist', // output path
   prefix: 'csvgtocss', // font name
+  exportJson: true, // export json file
 });
 ```
 
