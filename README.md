@@ -66,6 +66,25 @@ Exp: awesome.config.ts;
 }
 ```
 
+## Preview Icon
+
+- Install [iconify-preview](https://marketplace.visualstudio.com/items?itemName=hunghg255.iconify-preview)
+- Config `.vscode/settings.json` read file json icon which generate after run script
+
+```json
+{
+  "iconify.color": "#ddd",
+  "iconify.customCollectionJsonPaths": ["./public/svgcss/icon-collection.json"], // path json file
+  "iconify.delimiters": ["-"],
+  "iconify.prefixes": ["", "icon"],
+  "iconify.inplace": false,
+  "iconify.annotations": true,
+  "iconify.languageIds": ["typescript", "typescriptreact"]
+}
+```
+
+![Demo](./assets/demo.gif)
+
 ### About
 
 <a href="https://www.buymeacoffee.com/hunghg255" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
