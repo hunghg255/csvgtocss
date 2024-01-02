@@ -1,3 +1,10 @@
+## [v0.0.9](https://github.com/hunghg255/svgtocss/compare/v0.0.8...v0.0.9) - 2024-01-02
+### &nbsp;&nbsp;&nbsp;🏡 Chores
+
+- Update CHANGELOG.md &nbsp;-&nbsp; by **hunghg255** [<samp>(0c57f)</samp>](https://github.com/hunghg255/svgtocss/commit/0c57f7a)
+- Update readme &nbsp;-&nbsp; by **hunghg255** [<samp>(9ece0)</samp>](https://github.com/hunghg255/svgtocss/commit/9ece0e3)
+- Check svg monochrome &nbsp;-&nbsp; by **hunghg255** [<samp>(1e3c7)</samp>](https://github.com/hunghg255/svgtocss/commit/1e3c774)
+- Release v0.0.9 &nbsp;-&nbsp; by **hunghg255** [<samp>(dde48)</samp>](https://github.com/hunghg255/svgtocss/commit/dde48b7)
 ## [v0.0.8](https://github.com/hunghg255/svgtocss/compare/8bb9c64c1db058b3cf817fea87916b2f52d0914b...v0.0.8) - 2023-12-25
 ### &nbsp;&nbsp;&nbsp;📖 Documentation
 
