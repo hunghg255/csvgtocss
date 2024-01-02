@@ -86,7 +86,7 @@ export const genHtml = ({ cssContent, prefix, svgMonochrome, svgMultichrome }: a
         .footer { text-align: center; padding: 10px 0 90px 0; }
         .footer a { text-align: center; padding: 10px 0 90px 0; color: #696969;}
         .footer a:hover { color: #0949d1; }
-        .links { text-align: center; padding: 50px 0 0 0; font-size: 14px; }
+        .links { text-align: center; padding: 50px 10px; font-size: 16px; }
 
         .icons ul li.class-icon { font-size: 21px; line-height: 21px; padding-bottom: 20px;
           font-size: 21px;

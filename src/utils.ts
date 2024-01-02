@@ -3,6 +3,7 @@ import path from 'node:path';
 import fs from 'fs-extra';
 
 import { parseXml } from '@rgrove/parse-xml';
+import { stringToColor } from '@iconify/utils';
 
 /*
  * Filter svg files
@@ -38,6 +39,7 @@ export function svgHasOnlyPathChild(svg: string): boolean {
   if (mode) return true;
 
   let path = 0;
+  const fill = [];
 
   for (let idx = 0; idx < svgAst.children?.[0]?.children?.length; idx++) {
     const child = svgAst.children?.[0]?.children[idx];
@@ -49,6 +51,10 @@ export function svgHasOnlyPathChild(svg: string): boolean {
 
     if (child.name === 'path' || isRect || isCircle || isEllipse || isPolygon || isPolyline) {
       path = path + 1;
+    }
+
+    if (child?.attributes?.fill && child?.attributes?.fill !== 'none') {
+      fill.push(JSON.stringify(stringToColor(child?.attributes?.fill)));
     }
 
     if (child?.children?.length > 0) {
@@ -64,8 +70,23 @@ export function svgHasOnlyPathChild(svg: string): boolean {
         if (child2.name === 'path' || isRect || isCircle || isEllipse || isPolygon || isPolyline) {
           path = path + 1;
         }
+
+        if (child2?.attributes?.fill && child2?.attributes?.fill !== 'none') {
+          fill.push(JSON.stringify(stringToColor(child2?.attributes?.fill)));
+        }
       }
     }
+  }
+
+  if (fill.length === 1) return true;
+
+  if (fill.length > 1) {
+    const fillSet = new Set(fill);
+
+    if (fillSet.size > 1) {
+      return false;
+    }
+    return true;
   }
 
   return path > 1 ? false : true;

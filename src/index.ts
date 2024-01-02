@@ -1,11 +1,5 @@
-/// <reference types="./types" />
-
 import path from 'node:path';
-
 import fs from 'fs-extra';
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
-
 import { cleanupSVG, importDirectory, isEmptyColor, parseColors, runSVGO } from '@iconify/tools';
 import { getIconsCSS } from '@iconify/utils';
 import { log } from './log';
