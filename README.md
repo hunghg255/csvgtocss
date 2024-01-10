@@ -1,7 +1,19 @@
-# Convert svg to css
+<p align="center">
+<a href="https://www.npmjs.com/package/csvgtocss" target="_blank" rel="noopener noreferrer">
+<img src="https://api.iconify.design/tabler:icons.svg?color=%23cda7fb" alt="logo" width='100'/></a>
+</p>
 
-[![npm version](https://badge.fury.io/js/csvgtocss.svg)](https://badge.fury.io/js/csvgtocss) [![npm](https://img.shields.io/npm/dw/csvgtocss.svg?logo=npm)](https://www.npmjs.com/package/csvgtocss) [![npm](https://img.shields.io/bundlephobia/minzip/csvgtocss)](https://www.npmjs.com/package/csvgtocss)
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<p align="center">
+  A script converts svg file to icons
+</p>
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/csvgtocss" target="_blank" rel="noopener noreferrer"><img src="https://badge.fury.io/js/csvs-parsers.svg" alt="NPM Version" /></a>
+  <a href="https://www.npmjs.com/package/csvgtocss" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/npm/dt/csvs-parsers.svg?logo=npm" alt="NPM Downloads" /></a>
+  <a href="https://bundlephobia.com/result?p=csvgtocss" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/bundlephobia/minzip/csvgtocss" alt="Minizip" /></a>
+  <a href="https://github.com/hunghg255/csvgtocss/graphs/contributors" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/all_contributors-1-orange.svg" alt="Contributors" /></a>
+  <a href="https://github.com/hunghg255/csvgtocss/blob/main/LICENSE" target="_blank" rel="noopener noreferrer"><img src="https://badgen.net/github/license/hunghg255/csvgtocss" alt="License" /></a>
+</p>
 
 ## Demo
 
