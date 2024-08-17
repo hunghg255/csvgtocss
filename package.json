@@ -2,6 +2,7 @@
   "name": "csvgtocss",
   "version": "0.1.0",
   "type": "module",
+  "packageManager": "pnpm@9.7.1",
   "description": "Convert svg to css",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
