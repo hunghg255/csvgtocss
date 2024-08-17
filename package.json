@@ -1,44 +1,45 @@
 {
   "name": "csvgtocss",
   "version": "0.0.10",
+  "type": "module",
   "description": "Convert svg to css",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
-    "import": {
-      "types": "./dist/index.d.mts",
-      "default": "./dist/index.mjs"
-    },
-    "require": {
-      "types": "./dist/index.d.cts",
-      "default": "./dist/index.cjs"
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     }
   },
   "scripts": {
     "build": "unbuild",
     "stub": "unbuild --stub",
     "lint": "npx oxlint@latest .",
-    "changelog": "npx changeloggithub@latest --all true && git add CHANGELOG.md && git commit -m 'chore: update CHANGELOG.md'",
-    "release": "bumpp -r && npm run changelog"
+    "prepublishOnly": "pnpm build"
   },
   "keywords": [
     "svg",
     "font",
-    "convert svg to font"
+    "convert svg to font",
+    "iconify"
   ],
   "author": "hunghg255",
   "license": "MIT",
   "devDependencies": {
     "@hunghg255/eslint-config-ts": "^0.0.2",
-    "@size-limit/preset-small-lib": "^8.2.6",
     "@types/fs-extra": "^11.0.4",
-    "bumpp": "^9.2.1",
-    "del-cli": "^5.1.0",
-    "eslint": "^8.56.0",
+    "@types/node": "^22.4.0",
+    "bumpp": "^9.5.1",
+    "eslint": "^8.57.0",
     "prettier": "^2.8.8",
-    "size-limit": "^8.2.6",
-    "typescript": "^5.3.3",
+    "typescript": "^5.5.4",
     "unbuild": "^2.0.0"
   },
   "bin": {
@@ -57,13 +58,14 @@
     "url": "https://github.com/hunghg255/csvgtocss/issues"
   },
   "dependencies": {
-    "@iconify/tools": "^3.0.7",
-    "@iconify/utils": "^2.1.13",
+    "@iconify/tools": "^4.0.5",
+    "@iconify/utils": "^2.1.30",
     "@rgrove/parse-xml": "^4.1.0",
-    "colors-cli": "~1.0.33",
+    "cheerio": "^1.0.0",
     "commander": "^11.1.0",
     "consola": "^3.2.3",
     "fs-extra": "~11.1.1",
-    "unreadconfig": "^0.0.12"
+    "picocolors": "^1.0.1",
+    "unreadconfig": "^0.0.13"
   }
 }

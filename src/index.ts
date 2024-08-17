@@ -4,7 +4,7 @@ import { cleanupSVG, importDirectory, isEmptyColor, parseColors, runSVGO } from 
 import { getIconsCSS } from '@iconify/utils';
 import { log } from './log';
 import { filterSvgFiles, svgHasOnlyPathChild } from './utils';
-import color from 'colors-cli';
+import color from 'picocolors';
 import { genHtml } from './templates';
 
 export type SvgToCssOptions = {
