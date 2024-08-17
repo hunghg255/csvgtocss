@@ -1,6 +1,6 @@
 {
   "name": "csvgtocss",
-  "version": "0.0.10",
+  "version": "0.1.0",
   "type": "module",
   "description": "Convert svg to css",
   "main": "./dist/index.cjs",
