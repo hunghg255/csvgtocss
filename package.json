@@ -2,7 +2,7 @@
   "name": "csvgtocss",
   "version": "0.1.2",
   "type": "module",
-  "packageManager": "pnpm@9.13.2",
+  "packageManager": "pnpm@9.15.3",
   "description": "Convert svg to css",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
@@ -37,11 +37,11 @@
   "devDependencies": {
     "@hunghg255/eslint-config-ts": "^0.0.2",
     "@types/fs-extra": "^11.0.4",
-    "@types/node": "^22.9.0",
-    "bumpp": "^9.8.1",
+    "@types/node": "^22.10.5",
+    "bumpp": "^9.10.0",
     "eslint": "^8.57.1",
     "prettier": "^2.8.8",
-    "typescript": "^5.6.3",
+    "typescript": "^5.7.3",
     "unbuild": "^2.0.0"
   },
   "bin": {
@@ -60,12 +60,12 @@
     "url": "https://github.com/hunghg255/csvgtocss/issues"
   },
   "dependencies": {
-    "@iconify/tools": "^4.0.7",
-    "@iconify/utils": "^2.1.33",
+    "@iconify/tools": "^4.1.1",
+    "@iconify/utils": "^2.2.1",
     "@rgrove/parse-xml": "^4.2.0",
     "cheerio": "^1.0.0",
     "commander": "^11.1.0",
-    "consola": "^3.2.3",
+    "consola": "^3.3.3",
     "fs-extra": "~11.1.1",
     "picocolors": "^1.1.1",
     "unreadconfig": "^0.1.0"

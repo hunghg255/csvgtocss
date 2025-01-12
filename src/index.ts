@@ -71,6 +71,7 @@ export const svg2Font = async (options: SvgToCssOptions) => {
     // Import icons
     const iconSet = await importDirectory(src, {
       prefix,
+      ignoreImportErrors: true,
     });
 
     const svgMonochrome: any = [];
