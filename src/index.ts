@@ -65,6 +65,7 @@ export const svg2Font = async (options: SvgToCssOptions) => {
     await fs.ensureDir(options.dist as any);
 
     const svgFiles = await filterSvgFiles(src);
+    const svgFileSuccess: string[] = [];
 
     if (svgFiles.length === 0) return;
 
@@ -79,6 +80,8 @@ export const svg2Font = async (options: SvgToCssOptions) => {
 
     // Validate, clean up, fix palette and optimise
     await iconSet.forEach(async (name, type) => {
+      svgFileSuccess.push(name);
+
       if (type !== 'icon') {
         return;
       }
@@ -188,7 +191,18 @@ export type T${prefix} = ${[...svgMonochrome, ...svgMultichrome]
       );
     }
 
-    log.log(color.green('SvgTocss:CLI:SUCCESS:'));
+    log.log('✅', color.green('Generate icon SUCCESS'));
+    log.log(color.yellowBright(svgFileSuccess.join(' | ')));
+    console.log();
+    if (svgFiles.length !== svgFileSuccess.length) {
+      log.log('❌', color.red('Generate icon ERROR'));
+      log.log(
+        color.yellowBright(
+          'Can not generate with some icon like be: error svg content, svg content have image, etc...',
+        ),
+      );
+    }
+
     console.log();
   } catch (error) {
     log.log(color.red('SvgTocss:CLI:ERR:'), error);
