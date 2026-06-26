@@ -35,73 +35,248 @@ export const genHtml = ({ cssContent, prefix, svgMonochrome, svgMultichrome }: a
       />
 
       <link rel="stylesheet" href="${prefix}-css.css" />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
       <style>
-        *{margin: 0;padding: 0;list-style: none;}
-        body { color: #696969; font: 12px/1.5 tahoma, arial, sans-serif; }
-        a { color: #333; text-decoration: underline; }
-        a:hover { color: rgb(9, 73, 209); }
-        .header { color: #333; text-align: center; min-height: 153px; font-size: 14px; }
-        .header .logo svg { height: 120px; width: 120px; }
-        .header h1 { font-size: 42px; padding: 26px 0 10px 0; }
-        .header sup {font-size: 14px; margin: 8px 0 0 8px; position: absolute; color: #7b7b7b; }
-        .info {
-          color: #999;
-          font-weight: normal;
-          max-width: 346px;
-          margin: 0 auto;
-          padding: 20px 0;
-          font-size: 14px;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+          font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+          background: #f8f9fc;
+          color: #1a1a2e;
+          min-height: 100vh;
         }
 
-        .icons { max-width: 1190px; margin: 0 auto; }
-        .icons ul { text-align: center; }
-        .icons ul li {
-          vertical-align: top;
-          width: 120px;
-          display: inline-block;
+        /* Gradient Header */
+        .header {
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          color: #fff;
           text-align: center;
-          background-color: rgba(0,0,0,.02);
-          border-radius: 3px;
-          padding: 29px 0 10px 0;
-          margin-right: 10px;
+          padding: 60px 20px 80px;
+          position: relative;
+        }
+        .header::after {
+          content: '';
+          position: absolute;
+          bottom: -30px;
+          left: 0;
+          right: 0;
+          height: 60px;
+          background: #f8f9fc;
+          border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+        }
+        .header h1 {
+          font-size: 48px;
+          font-weight: 700;
+          letter-spacing: -1px;
+          text-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+        .header .subtitle {
+          font-size: 16px;
+          opacity: 0.85;
           margin-top: 10px;
-          transition: all 0.6s ease;
+          font-weight: 400;
         }
-        .icons ul li:hover { background-color: rgba(0,0,0,.06); }
-        .icons ul li:hover span { color: #3c75e4; opacity: 1; }
-        .icons ul li .unicode { color: #8c8c8c; opacity: 0.3; }
-        .icons ul li h4 {
-          font-weight: normal;
-          padding: 10px 0 5px 0;
-          display: block;
-          color: #8c8c8c;
-          font-size: 14px;
-          line-height: 12px;
-          opacity: 0.8;
-        }
-        .icons ul li:hover h4 { opacity: 1; }
-        .icons ul li svg { width: 24px; height: 24px; }
-        .icons ul li:hover { color: #3c75e4; }
-        .footer { text-align: center; padding: 10px 0 90px 0; }
-        .footer a { text-align: center; padding: 10px 0 90px 0; color: #696969;}
-        .footer a:hover { color: #0949d1; }
-        .links { text-align: center; padding: 50px 10px; font-size: 16px; }
 
-        .icons ul li.class-icon { font-size: 21px; line-height: 21px; padding-bottom: 20px;
-          font-size: 21px;
-          line-height: 21px;
-          padding-bottom: 20px;
+        /* Search Section */
+        .search-section {
+          max-width: 520px;
+          margin: -30px auto 0;
+          padding: 0 20px;
+          position: relative;
+          z-index: 10;
+        }
+        .search-wrapper {
+          position: relative;
+          display: flex;
+          align-items: center;
+        }
+        .search-icon {
+          position: absolute;
+          left: 20px;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 20px;
+          height: 20px;
+          color: #9ca3af;
+          pointer-events: none;
+        }
+        .search-input {
+          width: 100%;
+          padding: 18px 20px 18px 52px;
+          font-size: 16px;
+          font-family: inherit;
+          border: none;
+          border-radius: 16px;
+          background: #fff;
+          box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+          outline: none;
+          transition: box-shadow 0.2s ease;
+          color: #1a1a2e;
+        }
+        .search-input::placeholder { color: #9ca3af; }
+        .search-input:focus {
+          box-shadow: 0 4px 24px rgba(102,126,234,0.25), 0 1px 4px rgba(0,0,0,0.04);
+        }
+        .search-count {
+          text-align: center;
+          margin-top: 16px;
+          font-size: 14px;
+          color: #9ca3af;
+          font-weight: 500;
+        }
+
+        /* Icons Container */
+        .icons-container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 40px 20px 20px;
+        }
+
+        .section-title {
+          font-size: 20px;
+          font-weight: 600;
+          color: #374151;
+          margin: 40px 0 20px;
+          padding-left: 4px;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+        .section-title .badge {
           display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          background: linear-gradient(135deg, #667eea, #764ba2);
+          color: #fff;
+          font-size: 12px;
+          font-weight: 600;
+          padding: 3px 10px;
+          border-radius: 20px;
+          min-width: 28px;
+        }
+
+        /* Icon Grid */
+        .icon-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+          gap: 12px;
+        }
+
+        .icon-card {
+          display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
+          padding: 24px 8px 16px;
+          background: #fff;
+          border-radius: 12px;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          border: 1px solid transparent;
+          position: relative;
+          user-select: none;
         }
-        .icons ul li.class-icon p { font-size: 12px; }
-        .icons ul li.class-icon [class^="${prefix}-"]{ font-size: 26px; }
-        h3 {
+        .icon-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 8px 25px rgba(102,126,234,0.15);
+          border-color: rgba(102,126,234,0.2);
+        }
+        .icon-card:active {
+          transform: translateY(-1px);
+        }
+        .icon-card .icon-preview {
+          font-size: 30px;
+          line-height: 1;
+          color: #374151;
+          transition: color 0.2s ease;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 48px;
+          height: 48px;
+        }
+        .icon-card:hover .icon-preview { color: #667eea; }
+        .icon-card .icon-name {
+          font-size: 11px;
+          color: #9ca3af;
+          margin-top: 10px;
           text-align: center;
+          word-break: break-all;
+          line-height: 1.3;
+          max-width: 100%;
+          overflow: hidden;
+          font-weight: 500;
         }
+        .icon-card:hover .icon-name { color: #6b7280; }
+
+        /* Copy Toast */
+        .copy-toast {
+          position: fixed;
+          bottom: 40px;
+          left: 50%;
+          transform: translateX(-50%) translateY(20px);
+          background: #1a1a2e;
+          color: #fff;
+          padding: 14px 28px;
+          border-radius: 12px;
+          font-size: 14px;
+          font-weight: 500;
+          box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+          opacity: 0;
+          pointer-events: none;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          z-index: 1000;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+        .copy-toast.show {
+          opacity: 1;
+          transform: translateX(-50%) translateY(0);
+        }
+        .copy-toast svg {
+          width: 18px;
+          height: 18px;
+          flex-shrink: 0;
+        }
+
+        /* Hidden class for search filter */
+        .icon-card.hidden {
+          display: none;
+        }
+
+        /* No Results */
+        .no-results {
+          text-align: center;
+          padding: 60px 20px;
+          color: #9ca3af;
+          font-size: 16px;
+          display: none;
+        }
+        .no-results.show { display: block; }
+        .no-results svg {
+          width: 64px;
+          height: 64px;
+          margin-bottom: 16px;
+          opacity: 0.4;
+        }
+
+        /* Footer */
+        .footer {
+          text-align: center;
+          padding: 40px 20px 80px;
+        }
+        .footer a {
+          color: #667eea;
+          text-decoration: none;
+          font-weight: 500;
+          font-size: 15px;
+          transition: color 0.2s;
+        }
+        .footer a:hover { color: #764ba2; }
 
         ${cssContent}
       </style>
@@ -110,41 +285,183 @@ export const genHtml = ({ cssContent, prefix, svgMonochrome, svgMultichrome }: a
     <body>
       <div class="header">
         <h1>${prefix}</h1>
+        <p class="subtitle">Click any icon to copy its class name</p>
       </div>
-      <div class="icons">
-        <h3>Icon Monochrome</h3>
-        <ul>
+
+      <div class="search-section">
+        <div class="search-wrapper">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+          <input
+            type="text"
+            class="search-input"
+            id="searchInput"
+            placeholder="Search icons..."
+            autocomplete="off"
+          />
+        </div>
+        <div class="search-count" id="searchCount"></div>
+      </div>
+
+      <div class="icons-container">
+        <div class="section-title">
+          Monochrome
+          <span class="badge">${svgMonochrome.length}</span>
+        </div>
+        <div class="icon-grid" id="monoGrid">
           ${svgMonochrome
             .map((it: any) => {
-              return `<li class="class-icon">
-                <i class="${prefix}-${it.name}"></i>
-
-                <p class="name">${prefix}-${it.name}</p>
-            </li>`;
+              var fullName = prefix + '-' + it.name;
+              return (
+                '<div class="icon-card" data-name="' +
+                fullName +
+                '" onclick="copyIcon(this)">' +
+                '<span class="icon-preview"><i class="' +
+                fullName +
+                '"></i></span>' +
+                '<span class="icon-name">' +
+                fullName +
+                '</span>' +
+                '</div>'
+              );
             })
             .join('')}
-        </ul>
+        </div>
 
-        <br />
+        <div class="section-title">
+          Multicolor
+          <span class="badge">${svgMultichrome.length}</span>
+        </div>
+        <div class="icon-grid" id="multiGrid">
+          ${svgMultichrome
+            .map((it: any) => {
+              var fullName = prefix + '-' + it.name;
+              return (
+                '<div class="icon-card" data-name="' +
+                fullName +
+                '" onclick="copyIcon(this)">' +
+                '<span class="icon-preview"><i class="' +
+                fullName +
+                '"></i></span>' +
+                '<span class="icon-name">' +
+                fullName +
+                '</span>' +
+                '</div>'
+              );
+            })
+            .join('')}
+        </div>
 
-        <h3>Icon Multiplechrome</h3>
-        <ul>
-        ${svgMultichrome
-          .map((it: any) => {
-            return `<li class="class-icon">
-              <i class="${prefix}-${it.name}"></i>
-
-              <p class="name">${prefix}-${it.name}</p>
-          </li>`;
-          })
-          .join('')}
-      </ul>
+        <div class="no-results" id="noResults">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+            <path d="M8 11h6"></path>
+          </svg>
+          <div>No icons match your search</div>
+        </div>
       </div>
-      <p class="links">
 
+      <div class="footer">
         <a href="https://github.com/hunghg255/csvgtocss">GitHub</a>
+      </div>
 
-      </p>
+      <!-- Copy Toast -->
+      <div class="copy-toast" id="copyToast">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 6 9 17l-5-5"></path>
+        </svg>
+        <span id="toastText">Copied!</span>
+      </div>
+
+      <script>
+        // Copy icon name to clipboard
+        function copyIcon(el) {
+          var name = el.getAttribute('data-name');
+          navigator.clipboard.writeText(name).then(function() {
+            showToast(name);
+          }).catch(function() {
+            // Fallback for older browsers
+            var ta = document.createElement('textarea');
+            ta.value = name;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            showToast(name);
+          });
+        }
+
+        // Show toast notification
+        var toastTimeout;
+        function showToast(name) {
+          var toast = document.getElementById('copyToast');
+          var text = document.getElementById('toastText');
+          text.textContent = name + ' copied!';
+          toast.classList.add('show');
+          clearTimeout(toastTimeout);
+          toastTimeout = setTimeout(function() {
+            toast.classList.remove('show');
+          }, 1800);
+        }
+
+        // Search / Filter
+        var searchInput = document.getElementById('searchInput');
+        var allCards = document.querySelectorAll('.icon-card');
+        var monoGrid = document.getElementById('monoGrid');
+        var multiGrid = document.getElementById('multiGrid');
+        var noResults = document.getElementById('noResults');
+        var searchCount = document.getElementById('searchCount');
+        var sectionTitles = document.querySelectorAll('.section-title');
+
+        searchInput.addEventListener('input', function() {
+          var query = this.value.toLowerCase().trim();
+          var visibleCount = 0;
+
+          allCards.forEach(function(card) {
+            var name = card.getAttribute('data-name').toLowerCase();
+            if (!query || name.indexOf(query) !== -1) {
+              card.classList.remove('hidden');
+              visibleCount++;
+            } else {
+              card.classList.add('hidden');
+            }
+          });
+
+          // Update count display
+          searchCount.textContent = query ? visibleCount + ' of ' + allCards.length + ' icons' : '';
+
+          // Show/hide no results
+          noResults.classList.toggle('show', query && visibleCount === 0);
+
+          // Show/hide sections based on visible children
+          monoGrid.style.display = (query && monoGrid.querySelectorAll('.icon-card:not(.hidden)').length === 0) ? 'none' : '';
+          multiGrid.style.display = (query && multiGrid.querySelectorAll('.icon-card:not(.hidden)').length === 0) ? 'none' : '';
+
+          // Toggle section titles visibility
+          sectionTitles.forEach(function(title) {
+            var grid = title.nextElementSibling;
+            if (grid && grid.classList.contains('icon-grid')) {
+              title.style.display = (query && grid.querySelectorAll('.icon-card:not(.hidden)').length === 0) ? 'none' : '';
+            }
+          });
+        });
+
+        // Keyboard shortcut: focus search with /
+        document.addEventListener('keydown', function(e) {
+          if (e.key === '/' && document.activeElement !== searchInput) {
+            e.preventDefault();
+            searchInput.focus();
+          }
+          if (e.key === 'Escape') {
+            searchInput.value = '';
+            searchInput.dispatchEvent(new Event('input'));
+            searchInput.blur();
+          }
+        });
+      </script>
     </body>
   </html>
 `;
