@@ -47,162 +47,158 @@ export const genHtml = ({ cssContent, prefix, svgMonochrome, svgMultichrome }: a
           background: #f8f9fc;
           color: #1a1a2e;
           min-height: 100vh;
+          padding-top: 56px;
         }
 
-        /* Gradient Header */
-        .header {
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-          color: #fff;
-          text-align: center;
-          padding: 60px 20px 80px;
-          position: relative;
-        }
-        .header::after {
-          content: '';
-          position: absolute;
-          bottom: -30px;
+        /* Top Bar */
+        .tpl-topbar {
+          position: fixed;
+          top: 0;
           left: 0;
           right: 0;
-          height: 60px;
-          background: #f8f9fc;
-          border-radius: 50% 50% 0 0 / 100% 100% 0 0;
-        }
-        .header h1 {
-          font-size: 48px;
-          font-weight: 700;
-          letter-spacing: -1px;
-          text-shadow: 0 2px 10px rgba(0,0,0,0.15);
-        }
-        .header .subtitle {
-          font-size: 16px;
-          opacity: 0.85;
-          margin-top: 10px;
-          font-weight: 400;
-        }
-
-        /* Search Section */
-        .search-section {
-          max-width: 520px;
-          margin: -30px auto 0;
-          padding: 0 20px;
-          position: relative;
-          z-index: 10;
-        }
-        .search-wrapper {
-          position: relative;
+          height: 56px;
+          background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
           display: flex;
           align-items: center;
+          padding: 0 24px;
+          gap: 20px;
+          z-index: 100;
+          box-shadow: 0 2px 12px rgba(99,102,241,0.3);
         }
-        .search-icon {
+        .tpl-topbar-title {
+          font-size: 18px;
+          font-weight: 700;
+          color: #fff;
+          letter-spacing: -0.3px;
+          white-space: nowrap;
+          flex-shrink: 0;
+        }
+        .tpl-topbar-search {
+          flex: 1;
+          max-width: 400px;
+          position: relative;
+        }
+        .tpl-topbar-search-icon {
           position: absolute;
-          left: 20px;
+          left: 12px;
           top: 50%;
           transform: translateY(-50%);
-          width: 20px;
-          height: 20px;
+          width: 16px;
+          height: 16px;
           color: #9ca3af;
           pointer-events: none;
         }
-        .search-input {
+        .tpl-topbar-search-input {
           width: 100%;
-          padding: 18px 20px 18px 52px;
-          font-size: 16px;
+          height: 36px;
+          padding: 0 14px 0 38px;
+          font-size: 13px;
           font-family: inherit;
           border: none;
-          border-radius: 16px;
-          background: #fff;
-          box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+          border-radius: 10px;
+          background: rgba(255,255,255,0.95);
           outline: none;
-          transition: box-shadow 0.2s ease;
           color: #1a1a2e;
+          transition: box-shadow 0.2s ease, background 0.2s ease;
         }
-        .search-input::placeholder { color: #9ca3af; }
-        .search-input:focus {
-          box-shadow: 0 4px 24px rgba(102,126,234,0.25), 0 1px 4px rgba(0,0,0,0.04);
+        .tpl-topbar-search-input::placeholder { color: #9ca3af; }
+        .tpl-topbar-search-input:focus {
+          background: #fff;
+          box-shadow: 0 0 0 3px rgba(255,255,255,0.3);
         }
-        .search-count {
-          text-align: center;
-          margin-top: 16px;
-          font-size: 14px;
-          color: #9ca3af;
+        .tpl-topbar-count {
+          font-size: 13px;
           font-weight: 500;
+          color: rgba(255,255,255,0.75);
+          white-space: nowrap;
+          flex-shrink: 0;
         }
+        .tpl-topbar-link {
+          font-size: 13px;
+          font-weight: 500;
+          color: rgba(255,255,255,0.8);
+          text-decoration: none;
+          white-space: nowrap;
+          flex-shrink: 0;
+          margin-left: auto;
+          transition: color 0.2s;
+        }
+        .tpl-topbar-link:hover { color: #fff; }
 
         /* Icons Container */
-        .icons-container {
+        .tpl-icons-container {
           max-width: 1200px;
           margin: 0 auto;
-          padding: 40px 20px 20px;
+          padding: 24px 20px 20px;
         }
 
-        .section-title {
-          font-size: 20px;
+        .tpl-section-title {
+          font-size: 18px;
           font-weight: 600;
           color: #374151;
-          margin: 40px 0 20px;
+          margin: 32px 0 16px;
           padding-left: 4px;
           display: flex;
           align-items: center;
           gap: 10px;
         }
-        .section-title .badge {
+        .tpl-section-title:first-child { margin-top: 8px; }
+        .tpl-section-title .tpl-badge {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          background: linear-gradient(135deg, #667eea, #764ba2);
+          background: linear-gradient(135deg, #6366f1, #8b5cf6);
           color: #fff;
           font-size: 12px;
           font-weight: 600;
-          padding: 3px 10px;
+          padding: 2px 10px;
           border-radius: 20px;
           min-width: 28px;
         }
 
         /* Icon Grid */
-        .icon-grid {
+        .tpl-icon-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-          gap: 12px;
+          grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+          gap: 10px;
         }
 
-        .icon-card {
+        .tpl-icon-card {
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          padding: 24px 8px 16px;
+          padding: 20px 6px 14px;
           background: #fff;
           border-radius: 12px;
           cursor: pointer;
           transition: all 0.2s ease;
-          border: 1px solid transparent;
+          border: 1px solid #f0f0f0;
           position: relative;
           user-select: none;
         }
-        .icon-card:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 8px 25px rgba(102,126,234,0.15);
-          border-color: rgba(102,126,234,0.2);
+        .tpl-icon-card:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 6px 20px rgba(99,102,241,0.12);
+          border-color: rgba(99,102,241,0.2);
         }
-        .icon-card:active {
-          transform: translateY(-1px);
-        }
-        .icon-card .icon-preview {
-          font-size: 30px;
+        .tpl-icon-card:active { transform: translateY(-1px); }
+        .tpl-icon-card .tpl-icon-preview {
+          font-size: 28px;
           line-height: 1;
           color: #374151;
           transition: color 0.2s ease;
           display: flex;
           align-items: center;
           justify-content: center;
-          width: 48px;
-          height: 48px;
+          width: 44px;
+          height: 44px;
         }
-        .icon-card:hover .icon-preview { color: #667eea; }
-        .icon-card .icon-name {
-          font-size: 11px;
+        .tpl-icon-card:hover .tpl-icon-preview { color: #6366f1; }
+        .tpl-icon-card .tpl-icon-name {
+          font-size: 10px;
           color: #9ca3af;
-          margin-top: 10px;
+          margin-top: 8px;
           text-align: center;
           word-break: break-all;
           line-height: 1.3;
@@ -210,19 +206,19 @@ export const genHtml = ({ cssContent, prefix, svgMonochrome, svgMultichrome }: a
           overflow: hidden;
           font-weight: 500;
         }
-        .icon-card:hover .icon-name { color: #6b7280; }
+        .tpl-icon-card:hover .tpl-icon-name { color: #6b7280; }
 
         /* Copy Toast */
-        .copy-toast {
+        .tpl-copy-toast {
           position: fixed;
-          bottom: 40px;
+          bottom: 32px;
           left: 50%;
           transform: translateX(-50%) translateY(20px);
           background: #1a1a2e;
           color: #fff;
-          padding: 14px 28px;
-          border-radius: 12px;
-          font-size: 14px;
+          padding: 12px 24px;
+          border-radius: 10px;
+          font-size: 13px;
           font-weight: 500;
           box-shadow: 0 8px 30px rgba(0,0,0,0.2);
           opacity: 0;
@@ -233,95 +229,76 @@ export const genHtml = ({ cssContent, prefix, svgMonochrome, svgMultichrome }: a
           align-items: center;
           gap: 8px;
         }
-        .copy-toast.show {
+        .tpl-copy-toast.tpl-show {
           opacity: 1;
           transform: translateX(-50%) translateY(0);
         }
-        .copy-toast svg {
-          width: 18px;
-          height: 18px;
+        .tpl-copy-toast svg {
+          width: 16px;
+          height: 16px;
           flex-shrink: 0;
         }
 
         /* Hidden class for search filter */
-        .icon-card.hidden {
-          display: none;
-        }
+        .tpl-icon-card.tpl-hidden { display: none; }
 
         /* No Results */
-        .no-results {
+        .tpl-no-results {
           text-align: center;
           padding: 60px 20px;
           color: #9ca3af;
-          font-size: 16px;
+          font-size: 15px;
           display: none;
         }
-        .no-results.show { display: block; }
-        .no-results svg {
-          width: 64px;
-          height: 64px;
-          margin-bottom: 16px;
-          opacity: 0.4;
+        .tpl-no-results.tpl-show { display: block; }
+        .tpl-no-results svg {
+          width: 56px;
+          height: 56px;
+          margin-bottom: 14px;
+          opacity: 0.35;
         }
-
-        /* Footer */
-        .footer {
-          text-align: center;
-          padding: 40px 20px 80px;
-        }
-        .footer a {
-          color: #667eea;
-          text-decoration: none;
-          font-weight: 500;
-          font-size: 15px;
-          transition: color 0.2s;
-        }
-        .footer a:hover { color: #764ba2; }
 
         ${cssContent}
       </style>
     </head>
 
     <body>
-      <div class="header">
-        <h1>${prefix}</h1>
-        <p class="subtitle">Click any icon to copy its class name</p>
-      </div>
-
-      <div class="search-section">
-        <div class="search-wrapper">
-          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <div class="tpl-topbar">
+        <span class="tpl-topbar-title">${prefix}</span>
+        <div class="tpl-topbar-search">
+          <svg class="tpl-topbar-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="11" cy="11" r="8"></circle>
             <path d="m21 21-4.35-4.35"></path>
           </svg>
           <input
             type="text"
-            class="search-input"
+            class="tpl-topbar-search-input"
             id="searchInput"
-            placeholder="Search icons..."
+            placeholder="Search icons... ( / )"
             autocomplete="off"
           />
         </div>
-        <div class="search-count" id="searchCount"></div>
+        <span class="tpl-topbar-count" id="searchCount">${svgMonochrome.length + svgMultichrome.length} icons</span>
+        <a class="tpl-topbar-link" href="https://github.com/hunghg255/csvgtocss" target="_blank">GitHub</a>
       </div>
 
-      <div class="icons-container">
-        <div class="section-title">
+      <div class="tpl-icons-container">
+        <div class="tpl-section-title">
           Monochrome
-          <span class="badge">${svgMonochrome.length}</span>
+          <span class="tpl-badge">${svgMonochrome.length}</span>
         </div>
-        <div class="icon-grid" id="monoGrid">
+        <div class="tpl-icon-grid" id="monoGrid">
           ${svgMonochrome
             .map((it: any) => {
               var fullName = prefix + '-' + it.name;
               return (
-                '<div class="icon-card" data-name="' +
+                '<div class="tpl-icon-card" data-name="' +
                 fullName +
                 '" onclick="copyIcon(this)">' +
-                '<span class="icon-preview"><i class="' +
+                '<span class="tpl-icon-preview"><i class="' +
                 fullName +
                 '"></i></span>' +
-                '<span class="icon-name">' +
+                '<span class="tpl-icon-name">' +
                 fullName +
                 '</span>' +
                 '</div>'
@@ -330,22 +307,22 @@ export const genHtml = ({ cssContent, prefix, svgMonochrome, svgMultichrome }: a
             .join('')}
         </div>
 
-        <div class="section-title">
+        <div class="tpl-section-title">
           Multicolor
-          <span class="badge">${svgMultichrome.length}</span>
+          <span class="tpl-badge">${svgMultichrome.length}</span>
         </div>
-        <div class="icon-grid" id="multiGrid">
+        <div class="tpl-icon-grid" id="multiGrid">
           ${svgMultichrome
             .map((it: any) => {
               var fullName = prefix + '-' + it.name;
               return (
-                '<div class="icon-card" data-name="' +
+                '<div class="tpl-icon-card" data-name="' +
                 fullName +
                 '" onclick="copyIcon(this)">' +
-                '<span class="icon-preview"><i class="' +
+                '<span class="tpl-icon-preview"><i class="' +
                 fullName +
                 '"></i></span>' +
-                '<span class="icon-name">' +
+                '<span class="tpl-icon-name">' +
                 fullName +
                 '</span>' +
                 '</div>'
@@ -354,7 +331,7 @@ export const genHtml = ({ cssContent, prefix, svgMonochrome, svgMultichrome }: a
             .join('')}
         </div>
 
-        <div class="no-results" id="noResults">
+        <div class="tpl-no-results" id="noResults">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <circle cx="11" cy="11" r="8"></circle>
             <path d="m21 21-4.35-4.35"></path>
@@ -364,12 +341,8 @@ export const genHtml = ({ cssContent, prefix, svgMonochrome, svgMultichrome }: a
         </div>
       </div>
 
-      <div class="footer">
-        <a href="https://github.com/hunghg255/csvgtocss">GitHub</a>
-      </div>
-
       <!-- Copy Toast -->
-      <div class="copy-toast" id="copyToast">
+      <div class="tpl-copy-toast" id="copyToast">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M20 6 9 17l-5-5"></path>
         </svg>
@@ -383,7 +356,6 @@ export const genHtml = ({ cssContent, prefix, svgMonochrome, svgMultichrome }: a
           navigator.clipboard.writeText(name).then(function() {
             showToast(name);
           }).catch(function() {
-            // Fallback for older browsers
             var ta = document.createElement('textarea');
             ta.value = name;
             document.body.appendChild(ta);
@@ -400,56 +372,57 @@ export const genHtml = ({ cssContent, prefix, svgMonochrome, svgMultichrome }: a
           var toast = document.getElementById('copyToast');
           var text = document.getElementById('toastText');
           text.textContent = name + ' copied!';
-          toast.classList.add('show');
+          toast.classList.add('tpl-show');
           clearTimeout(toastTimeout);
           toastTimeout = setTimeout(function() {
-            toast.classList.remove('show');
+            toast.classList.remove('tpl-show');
           }, 1800);
         }
 
         // Search / Filter
         var searchInput = document.getElementById('searchInput');
-        var allCards = document.querySelectorAll('.icon-card');
+        var allCards = document.querySelectorAll('.tpl-icon-card');
         var monoGrid = document.getElementById('monoGrid');
         var multiGrid = document.getElementById('multiGrid');
         var noResults = document.getElementById('noResults');
         var searchCount = document.getElementById('searchCount');
-        var sectionTitles = document.querySelectorAll('.section-title');
+        var sectionTitles = document.querySelectorAll('.tpl-section-title');
+        var totalCount = allCards.length;
 
         searchInput.addEventListener('input', function() {
           var query = this.value.toLowerCase().trim();
           var visibleCount = 0;
 
           allCards.forEach(function(card) {
-            var name = card.getAttribute('data-name').toLowerCase();
+            var name = (card.getAttribute('data-name') || '').toLowerCase();
             if (!query || name.indexOf(query) !== -1) {
-              card.classList.remove('hidden');
+              card.classList.remove('tpl-hidden');
               visibleCount++;
             } else {
-              card.classList.add('hidden');
+              card.classList.add('tpl-hidden');
             }
           });
 
-          // Update count display
-          searchCount.textContent = query ? visibleCount + ' of ' + allCards.length + ' icons' : '';
+          // Update count
+          searchCount.textContent = query ? visibleCount + ' / ' + totalCount : totalCount + ' icons';
 
           // Show/hide no results
-          noResults.classList.toggle('show', query && visibleCount === 0);
+          noResults.classList.toggle('tpl-show', query && visibleCount === 0);
 
-          // Show/hide sections based on visible children
-          monoGrid.style.display = (query && monoGrid.querySelectorAll('.icon-card:not(.hidden)').length === 0) ? 'none' : '';
-          multiGrid.style.display = (query && multiGrid.querySelectorAll('.icon-card:not(.hidden)').length === 0) ? 'none' : '';
+          // Show/hide sections
+          monoGrid.style.display = (query && monoGrid.querySelectorAll('.tpl-icon-card:not(.tpl-hidden)').length === 0) ? 'none' : '';
+          multiGrid.style.display = (query && multiGrid.querySelectorAll('.tpl-icon-card:not(.tpl-hidden)').length === 0) ? 'none' : '';
 
-          // Toggle section titles visibility
+          // Toggle section titles
           sectionTitles.forEach(function(title) {
             var grid = title.nextElementSibling;
-            if (grid && grid.classList.contains('icon-grid')) {
-              title.style.display = (query && grid.querySelectorAll('.icon-card:not(.hidden)').length === 0) ? 'none' : '';
+            if (grid && grid.classList.contains('tpl-icon-grid')) {
+              title.style.display = (query && grid.querySelectorAll('.tpl-icon-card:not(.tpl-hidden)').length === 0) ? 'none' : '';
             }
           });
         });
 
-        // Keyboard shortcut: focus search with /
+        // Keyboard shortcut
         document.addEventListener('keydown', function(e) {
           if (e.key === '/' && document.activeElement !== searchInput) {
             e.preventDefault();
