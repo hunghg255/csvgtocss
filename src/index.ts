@@ -3,7 +3,7 @@ import fs from 'fs-extra';
 import { cleanupSVG, importDirectory, isEmptyColor, parseColors, runSVGO } from '@iconify/tools';
 import { getIconsCSS } from '@iconify/utils';
 import { log } from './log';
-import { filterSvgFiles, svgHasOnlyPathChild } from './utils';
+import { analyzeSvgMonochrome, filterSvgFiles } from './utils';
 import color from 'picocolors';
 import { genHtml } from './templates';
 
@@ -99,7 +99,7 @@ export const svg2Font = async (options: SvgToCssOptions) => {
         cleanupSVG(svg);
 
         // check svg is monotone
-        const isMonochrome = svgHasOnlyPathChild(svg.toString());
+        const isMonochrome = analyzeSvgMonochrome(svg.toString());
         // Assume icon is monotone: replace color with currentColor, add if missing
         // If icon is not monotone, remove this code
         if (isMonochrome) {
