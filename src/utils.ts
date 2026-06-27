@@ -25,6 +25,7 @@ export function filterSvgFiles(svgFolderPath: string): string[] {
   return svgArr;
 }
 
+
 const PAINTABLE_TAGS = new Set([
   'path',
   'rect',
@@ -41,23 +42,35 @@ const PAINTABLE_TAGS = new Set([
 
 const GRADIENT_TAGS = new Set(['linearGradient', 'radialGradient', 'pattern']);
 
-const NON_RENDER_TAGS = new Set([
-  'svg',
-  'g',
+/**
+ * Những tag này không render trực tiếp màu ra icon chính.
+ * Con bên trong cũng không được tính vào colors.
+ *
+ * Ví dụ:
+ * <defs>
+ *   <clipPath>
+ *     <rect fill="white"/>
+ *   </clipPath>
+ * </defs>
+ *
+ * rect fill white ở trên chỉ dùng để tạo clip path, không phải màu của icon.
+ */
+const NON_PAINT_CONTEXT_TAGS = new Set([
   'defs',
   'clipPath',
   'mask',
   'filter',
-  'style',
-  'title',
-  'desc',
-  'metadata',
   'symbol',
   'marker',
-  'switch',
 ]);
 
-const IGNORE_PAINT_VALUES = new Set(['none', 'transparent', 'inherit', 'initial', 'unset']);
+const IGNORE_PAINT_VALUES = new Set([
+  'none',
+  'transparent',
+  'inherit',
+  'initial',
+  'unset',
+]);
 
 function toArray(value) {
   if (value == null) return [];
@@ -120,11 +133,9 @@ function normalizeColor(value, options = {}) {
     return '__url_paint__';
   }
 
-  // Normalize common whites/blacks.
   if (v === 'white') return '#ffffff';
   if (v === 'black') return '#000000';
 
-  // Normalize #rgb to #rrggbb.
   const shortHex = v.match(/^#([0-9a-f]{3})$/i);
   if (shortHex) {
     const [r, g, b] = shortHex[1].split('');
@@ -180,7 +191,7 @@ function collectChildEntries(node) {
 }
 
 /**
- * Analyze whether an SVG is monochrome.
+ * Report version for debugging.
  *
  * Monochrome = rendered paint colors count <= 1.
  * Duotone = rendered paint colors count === 2.
@@ -213,20 +224,29 @@ export function analyzeSvgMonochrome(svgString, options = {}) {
   let hasBitmap = false;
   let hasUrlPaint = false;
 
-  function visit(tagName, node, inheritedState, inheritedHidden) {
+  function visit(tagName, node, inheritedState, inheritedHidden, insideNonPaintContext) {
+    const nextInsideNonPaintContext =
+      insideNonPaintContext || NON_PAINT_CONTEXT_TAGS.has(tagName);
+
     const hidden = isHidden(node, inheritedHidden);
     const state = makeState(node, inheritedState);
 
+    /**
+     * Gradient / pattern vẫn nên detect vì nếu icon chính dùng fill="url(#...)"
+     * thì bên paintable node sẽ set hasUrlPaint = true.
+     *
+     * Nhưng màu bên trong defs/clipPath không được add vào colors.
+     */
     if (GRADIENT_TAGS.has(tagName)) {
       if (tagName === 'pattern') hasPattern = true;
       else hasGradient = true;
     }
 
-    if (tagName === 'image') {
+    if (!nextInsideNonPaintContext && tagName === 'image') {
       hasBitmap = true;
     }
 
-    if (!hidden && PAINTABLE_TAGS.has(tagName)) {
+    if (!nextInsideNonPaintContext && !hidden && PAINTABLE_TAGS.has(tagName)) {
       const fill = normalizeColor(state.fill, options);
       const stroke = normalizeColor(state.stroke, options);
 
@@ -259,11 +279,11 @@ export function analyzeSvgMonochrome(svgString, options = {}) {
     }
 
     for (const [childTagName, childNode] of collectChildEntries(node)) {
-      visit(childTagName, childNode, state, hidden);
+      visit(childTagName, childNode, state, hidden, nextInsideNonPaintContext);
     }
   }
 
-  visit('svg', parsed.svg, { fill: 'black', stroke: 'none' }, false);
+  visit('svg', parsed.svg, { fill: 'black', stroke: 'none' }, false, false);
 
   const resultColors = [...colors];
 
