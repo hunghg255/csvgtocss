@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="description" content="csvgtocss — turn a folder of SVG files into CSS icon classes." />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%236366f1'/%3E%3Cpath d='M6 6h5v5H6zm7 0h5v5h-5zm-7 7h5v5H6zm9.5 0a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5z' fill='white'/%3E%3C/svg%3E" />
+    <title>csvgtocss</title>
+    <script>
+      try {
+        var t = localStorage.getItem('csvgtocss-docs:theme');
+        if (t) document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
