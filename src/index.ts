@@ -47,10 +47,6 @@ interface IDefineConfig {
   exportJson?: boolean;
 }
 
-declare global {
-  const options: any;
-}
-
 export const defineConfig = (options: IDefineConfig) => {
   return options;
 };
@@ -61,11 +57,9 @@ export const svg2Font = async (options: SvgToCssOptions) => {
   const prefix = options.prefix ?? 'icon';
 
   try {
-    await fs.emptyDir(options.dist as any);
-    await fs.ensureDir(options.dist as any);
+    await fs.emptyDir(dist);
 
-    const svgFiles = await filterSvgFiles(src);
-    const svgFileSuccess: string[] = [];
+    const svgFiles = filterSvgFiles(src);
 
     if (svgFiles.length === 0) return;
 
@@ -75,13 +69,11 @@ export const svg2Font = async (options: SvgToCssOptions) => {
       ignoreImportErrors: true,
     });
 
-    const svgMonochrome: any = [];
-    const svgMultichrome: any = [];
+    const svgMonochrome: Array<{ name: string; prefix: string }> = [];
+    const svgMultichrome: Array<{ name: string; prefix: string }> = [];
 
     // Validate, clean up, fix palette and optimise
     await iconSet.forEach(async (name, type) => {
-      svgFileSuccess.push(name);
-
       if (type !== 'icon') {
         return;
       }
@@ -93,13 +85,15 @@ export const svg2Font = async (options: SvgToCssOptions) => {
         return;
       }
 
+      let isMonochrome: boolean;
+
       // Clean up and optimise icons
       try {
         // Clean up icon code
         cleanupSVG(svg);
 
         // check svg is monotone
-        const isMonochrome = analyzeSvgMonochrome(svg.toString());
+        isMonochrome = analyzeSvgMonochrome(svg.toString());
         // Assume icon is monotone: replace color with currentColor, add if missing
         // If icon is not monotone, remove this code
         if (isMonochrome) {
@@ -113,18 +107,6 @@ export const svg2Font = async (options: SvgToCssOptions) => {
 
         // Optimise
         runSVGO(svg);
-
-        if (isMonochrome) {
-          svgMonochrome.push({
-            name,
-            prefix,
-          });
-        } else {
-          svgMultichrome.push({
-            name,
-            prefix,
-          });
-        }
       } catch (err) {
         // Invalid icon
         console.error(`Error parsing ${name}:`, err);
@@ -134,29 +116,35 @@ export const svg2Font = async (options: SvgToCssOptions) => {
 
       // Update icon
       iconSet.fromSVG(name, svg);
+      (isMonochrome ? svgMonochrome : svgMultichrome).push({ name, prefix });
     });
+
+    const svgFileSuccess = [...svgMonochrome, ...svgMultichrome].map((it) => it.name);
+    const iconSetData = iconSet.export();
 
     let cssMonofont = '';
     let cssMultifont = '';
 
-    if (svgMonochrome?.length) {
+    if (svgMonochrome.length) {
       cssMonofont = getIconsCSS(
-        iconSet.export(),
-        svgMonochrome.map((it: any) => it.name),
+        iconSetData,
+        svgMonochrome.map((it) => it.name),
         {
           iconSelector: `.${prefix}-{name}`,
           commonSelector: '',
+          mode: 'mask',
         },
       );
     }
 
-    if (svgMultichrome?.length) {
+    if (svgMultichrome.length) {
       cssMultifont = getIconsCSS(
-        iconSet.export(),
-        svgMultichrome.map((it: any) => it.name),
+        iconSetData,
+        svgMultichrome.map((it) => it.name),
         {
           iconSelector: `.${prefix}-{name}`,
           commonSelector: '',
+          mode: 'background',
         },
       );
     }
@@ -167,29 +155,34 @@ ${cssMultifont}
 `;
 
     const type = `
-export type T${prefix} = ${[...svgMonochrome, ...svgMultichrome]
-      .map((it: any) => `'${prefix}-${it?.name}'`)
+export type T${prefix} = ${svgFileSuccess
+      .map((name) => `'${prefix}-${name}'`)
       .join(' | ')};
 `;
 
-    fs.writeFile(path.resolve(dist, `${prefix}-css.css`), cssContent);
-    fs.writeFile(path.resolve(dist, `${prefix}-type.d.ts`), type);
-    fs.writeFile(
-      path.resolve(dist, `${prefix}-demo.html`),
-      genHtml({
-        cssContent,
-        prefix,
-        svgMonochrome,
-        svgMultichrome,
-      }),
-    );
+    const writes = [
+      fs.writeFile(path.resolve(dist, `${prefix}-css.css`), cssContent),
+      fs.writeFile(path.resolve(dist, `${prefix}-type.d.ts`), type),
+      fs.writeFile(
+        path.resolve(dist, `${prefix}-demo.html`),
+        genHtml({
+          prefix,
+          svgMonochrome,
+          svgMultichrome,
+        }),
+      ),
+    ];
 
     if (options?.exportJson) {
-      fs.writeFile(
-        path.resolve(dist, `${prefix}-collection.json`),
-        JSON.stringify(iconSet.export(), null, 2),
+      writes.push(
+        fs.writeFile(
+          path.resolve(dist, `${prefix}-collection.json`),
+          JSON.stringify(iconSetData, null, 2),
+        ),
       );
     }
+
+    await Promise.all(writes);
 
     log.log('✅', color.green('Generate icon SUCCESS'));
     log.log(color.yellowBright(svgFileSuccess.join(' | ')));

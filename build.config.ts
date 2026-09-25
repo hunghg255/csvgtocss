@@ -6,7 +6,6 @@ export default defineBuildConfig({
   declaration: true,
   failOnWarn: false,
   rollup: {
-    inlineDependencies: true,
     emitCJS: true,
     cjsBridge: true,
     esbuild: {
