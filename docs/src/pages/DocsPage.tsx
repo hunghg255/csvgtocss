@@ -235,7 +235,7 @@ export default defineConfig({
   }
 }`}
               />
-              <CodeBlock title="terminal" code={`npm run icons\n\n# use another config file name\nnpx csvgtocss -c my-icons.config`} />
+              <CodeBlock title="terminal" code={`npm run icons\n\n# use my-icons.config.ts instead of svgtocss.config.ts\nnpx csvgtocss -c my-icons`} />
             </li>
             <li>
               <strong>Import the CSS and use a class</strong>
