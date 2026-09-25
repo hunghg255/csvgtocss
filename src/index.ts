@@ -177,7 +177,6 @@ export type T${prefix} = ${[...svgMonochrome, ...svgMultichrome]
     fs.writeFile(
       path.resolve(dist, `${prefix}-demo.html`),
       genHtml({
-        cssContent,
         prefix,
         svgMonochrome,
         svgMultichrome,
