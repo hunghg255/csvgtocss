@@ -9,22 +9,14 @@ import { XMLParser } from 'fast-xml-parser';
  */
 export function filterSvgFiles(svgFolderPath: string): string[] {
   const files = fs.readdirSync(svgFolderPath, 'utf-8');
-  const svgArr = [];
   if (!files) {
     throw new Error(`Error! Svg folder is empty.${svgFolderPath}`);
   }
 
-  for (const i in files) {
-    if (typeof files[i] !== 'string' || path.extname(files[i]) !== '.svg') {
-      continue;
-    }
-    if (!~svgArr.indexOf(files[i])) {
-      svgArr.push(path.join(svgFolderPath, files[i]));
-    }
-  }
-  return svgArr;
+  return [...new Set(files)]
+    .filter((file) => typeof file === 'string' && path.extname(file) === '.svg')
+    .map((file) => path.join(svgFolderPath, file));
 }
-
 
 const PAINTABLE_TAGS = new Set([
   'path',
@@ -64,6 +56,16 @@ const NON_PAINT_CONTEXT_TAGS = new Set([
   'marker',
 ]);
 
+const parser = new XMLParser({
+  ignoreAttributes: false,
+  attributeNamePrefix: '',
+  attributesGroupName: '@',
+  preserveOrder: false,
+  trimValues: true,
+  parseTagValue: false,
+  parseAttributeValue: false,
+});
+
 const IGNORE_PAINT_VALUES = new Set([
   'none',
   'transparent',
@@ -97,10 +99,6 @@ function parseStyle(style = '') {
 
 function getAttr(node, name) {
   return node?.['@']?.[name];
-}
-
-function getNodeStyle(node) {
-  return parseStyle(getAttr(node, 'style'));
 }
 
 function pickPaintValue(node, style, inherited, prop) {
@@ -145,9 +143,7 @@ function normalizeColor(value, options = {}) {
   return v;
 }
 
-function makeState(node, inherited) {
-  const style = getNodeStyle(node);
-
+function makeState(node, style, inherited) {
   const fill = pickPaintValue(node, style, inherited, 'fill');
   const stroke = pickPaintValue(node, style, inherited, 'stroke');
 
@@ -157,11 +153,10 @@ function makeState(node, inherited) {
   };
 }
 
-function isHidden(node, inheritedHidden = false) {
+function isHidden(node, style, inheritedHidden = false) {
   if (inheritedHidden) return true;
 
   const attrs = node?.['@'] || {};
-  const style = parseStyle(attrs.style);
 
   const display = style.display ?? attrs.display;
   const visibility = style.visibility ?? attrs.visibility;
@@ -200,16 +195,6 @@ function collectChildEntries(node) {
  * Gradients/patterns/bitmap are classified separately.
  */
 export function analyzeSvgMonochrome(svgString, options = {}) {
-  const parser = new XMLParser({
-    ignoreAttributes: false,
-    attributeNamePrefix: '',
-    attributesGroupName: '@',
-    preserveOrder: false,
-    trimValues: true,
-    parseTagValue: false,
-    parseAttributeValue: false,
-  });
-
   const parsed = parser.parse(svgString);
 
   if (!parsed || !parsed.svg) {
@@ -217,7 +202,6 @@ export function analyzeSvgMonochrome(svgString, options = {}) {
   }
 
   const colors = new Set();
-  const paintNodes = [];
 
   let hasGradient = false;
   let hasPattern = false;
@@ -228,8 +212,9 @@ export function analyzeSvgMonochrome(svgString, options = {}) {
     const nextInsideNonPaintContext =
       insideNonPaintContext || NON_PAINT_CONTEXT_TAGS.has(tagName);
 
-    const hidden = isHidden(node, inheritedHidden);
-    const state = makeState(node, inheritedState);
+    const style = parseStyle(getAttr(node, 'style'));
+    const hidden = isHidden(node, style, inheritedHidden);
+    const state = makeState(node, style, inheritedState);
 
     /**
      * Gradient / pattern vẫn nên detect vì nếu icon chính dùng fill="url(#...)"
@@ -250,14 +235,11 @@ export function analyzeSvgMonochrome(svgString, options = {}) {
       const fill = normalizeColor(state.fill, options);
       const stroke = normalizeColor(state.stroke, options);
 
-      const nodeColors = [];
-
       if (fill) {
         if (fill === '__url_paint__') {
           hasUrlPaint = true;
         } else {
           colors.add(fill);
-          nodeColors.push(fill);
         }
       }
 
@@ -266,16 +248,8 @@ export function analyzeSvgMonochrome(svgString, options = {}) {
           hasUrlPaint = true;
         } else {
           colors.add(stroke);
-          nodeColors.push(stroke);
         }
       }
-
-      paintNodes.push({
-        tagName,
-        fill: state.fill,
-        stroke: state.stroke,
-        colors: nodeColors,
-      });
     }
 
     for (const [childTagName, childNode] of collectChildEntries(node)) {

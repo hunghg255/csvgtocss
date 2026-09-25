@@ -40,7 +40,7 @@ Output:
 - `src/templates/index.ts` — Generates HTML preview page with search/filter and copy-to-clipboard.
 - `src/log.ts` — Simple logger wrapper with enable/disable toggle.
 - `src/errors.ts` — `PrettyError` class and error handler.
-- `build.config.ts` — Unbuild config with `inlineDependencies: true` (bundles deps into output), `cjsBridge: true`, minification enabled.
+- `build.config.ts` — Unbuild config with `cjsBridge: true`, minification enabled. Runtime deps stay external (installed via `dependencies`).
 
 ### Monochrome detection logic
 

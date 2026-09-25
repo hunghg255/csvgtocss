@@ -22,7 +22,7 @@
   "scripts": {
     "build": "unbuild",
     "stub": "unbuild --stub",
-    "lint": "npx oxlint@latest .",
+    "lint": "oxlint .",
     "prepublishOnly": "pnpm build",
     "release": "bumpp"
   },
@@ -38,6 +38,7 @@
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^22.20.0",
     "bumpp": "^9.11.1",
+    "oxlint": "1.85.0",
     "typescript": "^5.9.3",
     "unbuild": "^2.0.0"
   },

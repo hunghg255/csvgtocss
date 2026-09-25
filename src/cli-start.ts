@@ -34,7 +34,7 @@ export async function startCli(cwd = process.cwd(), argv = process.argv) {
       throw new Error('Not Found Config');
     }
 
-    svg2Font({
+    await svg2Font({
       ...optionsConfig,
       website: {
         index: 'font-class',
