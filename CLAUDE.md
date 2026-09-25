@@ -10,7 +10,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `pnpm prepublishOnly` — Runs `pnpm build` before publish
 - `pnpm release` — Version bump (bumpp), followed by tag push to trigger GitHub Release workflow
 - `node bin/csvgtocss.mjs` — Run CLI locally without installing
-- `cd docs && pnpm install && pnpm dev` — Docs site (React + Vite, separate package). Needs the root `pnpm build` first; `docs/scripts/gen-icons.mjs` generates its icon CSS from `test/svg`.
+- `cd docs && pnpm install && pnpm dev` — Docs site (React + Vite, separate package). `docs/scripts/gen-icons.mjs` generates its icon CSS from `test/svg`, building the root library first if `dist/` is missing.
 
 ## Architecture
 
