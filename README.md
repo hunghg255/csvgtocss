@@ -18,7 +18,7 @@
 ## Demo
 
 - [Docs](./docs) — usage guide, how it works, and an icon browser (React site in `docs/`)
-- [Demo page](https://svg-to-css.surge.sh)
+- [Demo page](https://csvgtocss.vercel.app/#/icons)
 - [GitHub](https://github.com/hunghg255/csvgtocss)
 
 csvgtocss turns a folder of SVG files into **one CSS file**. Every icon becomes a class such as `.icon-add` that you put on any element — no icon font, no JavaScript runtime, no sprite.
